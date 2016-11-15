@@ -1,0 +1,10 @@
+{
+    "name": "test4",
+    "version": "0.0.1",
+    "description": "test4",
+    "main": "server.js",
+    "dependencies": {
+        "express": "latest",
+        "mongoose": "latest"
+    }
+}
