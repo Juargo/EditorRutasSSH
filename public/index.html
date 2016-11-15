@@ -12,8 +12,21 @@
     </script>
 
     <script src="app.js"></script>
+    <script src="controllers/rutasListControllers.js"></script>
 </head>
 <body ng-controller="mainCtrl">
-    
+    <div class="navbar navbar-inverse">
+        <a class="navbar-brand" href="#">Rutas</a>
+    </div>
+    <div ng-repeat="item in data.accesos" ng-controller="rutasListController">
+        {{item.nombre}}
+        <div ng-repeat="(key,value) in item.protocolos">
+            {{key}}
+            <div ng-repeat="(keyd,valued) in value">
+                ruta {{keyd}}
+                {{select(valued)}} 
+            </div>
+        </div>
+    </div>
 </body>
 </html>
