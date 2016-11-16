@@ -5,28 +5,37 @@
     <title>router</title>
     <script src="/components/angular.min.js"></script>
 
-    <link rel="stylesheet" href="/components/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="/components/bootstrap-theme.css">
     <script>
-        angular.module('routerApp',[]);
+        angular.module("routerApp",["customFilters"])
     </script>
 
     <script src="app.js"></script>
-    <script src="controllers/rutasListControllers.js"></script>
+    <script src="filters/customFilters.js"></script>
 </head>
+
 <body ng-controller="mainCtrl">
     <div class="navbar navbar-inverse">
         <a class="navbar-brand" href="#">Rutas</a>
     </div>
-    <div ng-repeat="item in data.accesos" ng-controller="rutasListController">
-        {{item.nombre}}
-        <div ng-repeat="(key,value) in item.protocolos">
-            {{key}}
-            <div ng-repeat="(keyd,valued) in value">
-                ruta {{keyd}}
-                {{select(valued)}} 
+    <div class="col-xs-8">
+        <div class="well" ng-repeat="items in data.accesos">
+            <h3>
+                <strong>{{items.nombre}}</strong>
+            </h3>
+            <div class="tab-content">
+                <ul class="nav nav-tabs">
+                    <li><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></li>
+                    <li ng-repeat="item in data.accesos|protocol">
+                        <a> {{item}}</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
+
 </body>
+
 </html>
