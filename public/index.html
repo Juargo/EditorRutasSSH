@@ -3,6 +3,8 @@
 
 <head>
     <title>router</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.js" integrity="sha256-5i/mQ300M779N2OVDrl16lbohwXNUdzL/R2aVUXyXWA="
+        crossorigin="anonymous"></script>
     <script src="/components/angular.min.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -14,6 +16,7 @@
 
     <script src="app.js"></script>
     <script src="filters/customFilters.js"></script>
+    <script src="controllers/rutasListControllers.js"></script>
 </head>
 
 <body ng-controller="mainCtrl">
@@ -21,14 +24,14 @@
         <a class="navbar-brand" href="#">Rutas</a>
     </div>
     <div class="col-xs-8">
-        <div class="well" ng-repeat="items in data.accesos">
+        <div class="well" ng-repeat="items in data.accesos" ng-controller="rutasListController">
             <h3>
                 <strong>{{items.nombre}}</strong>
             </h3>
             <div class="tab-content">
                 <ul class="nav nav-tabs">
                     <li><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></li>
-                    <li ng-repeat="item in data.accesos|protocol">
+                    <li ng-repeat="item in data.accesos|protocol" class="{{items._id}}" ng-click="selectProtocol($event,items._id)">
                         <a> {{item}}</a>
                     </li>
                 </ul>
