@@ -23,18 +23,21 @@
     <div class="navbar navbar-inverse">
         <a class="navbar-brand" href="#">Rutas</a>
     </div>
-    <div class="col-xs-8">
-        <div class="well" ng-repeat="items in data.accesos" ng-controller="rutasListController">
-            <h3>
-                <strong>{{items.nombre}}</strong>
-            </h3>
-            <div class="tab-content">
-                <ul class="nav nav-tabs">
-                    <li><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></li>
-                    <li ng-repeat="item in data.accesos|protocol" class="{{items._id}}" ng-click="selectProtocol($event,items._id)">
-                        <a> {{item}}</a>
-                    </li>
-                </ul>
+    <div class="panel panel-default row" ng-controller="rutasListController">
+        <div class="col-xs-3">
+            <a class="btn btn-block btn-default btn-lg" ng-click="selectOperadora()">Todos</a>
+            <a ng-repeat="item in data.accesos | orderBy:'operadora'| unique:'operadora'" class="btn btn-block btn-default btn-lg" ng-click="selectOperadora(item)" ng-class="getOperadoraClass(item)" >
+                {{item}} 
+            </a>                                                     
+        </div>
+        <div class="col-xs-3">
+            <a class="btn btn-block btn-default btn-lg" ng-repeat="items in data.accesos|filter:operadoraFilterFn" ng-click="selectNodo(items)" ng-class="getNodoClass(items)"  >
+                {{items.nombre}} 
+            </a>                                                     
+        </div>
+        <div class="col-xs-6">
+            <div class="well" ng-repeat="itemd in data.accesos|filter:operadoraFilterFn|filter:nodoFilterFn">
+                {{itemd.nombre}}
             </div>
         </div>
     </div>
