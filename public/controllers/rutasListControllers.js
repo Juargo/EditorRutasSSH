@@ -5,6 +5,8 @@ angular.module("routerApp")
         var selectedNodo = null;
         var selectedProtocol = null;
 
+        $scope.selection = null;
+
         $scope.selectOperadora = function (newOperadora) {
             selectedOperadora = newOperadora;
         }
@@ -41,5 +43,9 @@ angular.module("routerApp")
 
         $scope.getactiveProtocol = function (nodoclass) {
             return $("." + nodoclass).hasClass("active")
+        }
+
+        $scope.sProcol = function(data){
+            $scope.selection = data;
         }
     })

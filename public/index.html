@@ -6,10 +6,12 @@
     <script src="https://code.jquery.com/jquery-3.1.1.slim.js" integrity="sha256-5i/mQ300M779N2OVDrl16lbohwXNUdzL/R2aVUXyXWA="
         crossorigin="anonymous"></script>
     <script src="/components/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.5.8/angular-route.min.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
         crossorigin="anonymous">
     <link rel="stylesheet" href="/components/bootstrap-theme.css">
+
     <script>
         angular.module("routerApp",["customFilters"])
     </script>
@@ -26,18 +28,28 @@
     <div class="panel panel-default row" ng-controller="rutasListController">
         <div class="col-xs-3">
             <a class="btn btn-block btn-default btn-lg" ng-click="selectOperadora()">Todos</a>
-            <a ng-repeat="item in data.accesos | orderBy:'operadora'| unique:'operadora'" class="btn btn-block btn-default btn-lg" ng-click="selectOperadora(item)" ng-class="getOperadoraClass(item)" >
+            <a ng-repeat="item in data.accesos | orderBy:'operadora'| unique:'operadora'" class="btn btn-block btn-default btn-lg" ng-click="selectOperadora(item)"
+                ng-class="getOperadoraClass(item)">
                 {{item}} 
-            </a>                                                     
+            </a>
         </div>
         <div class="col-xs-3">
-            <a class="btn btn-block btn-default btn-lg" ng-repeat="items in data.accesos|filter:operadoraFilterFn" ng-click="selectNodo(items)" ng-class="getNodoClass(items)"  >
+            <a class="btn btn-block btn-default btn-lg" ng-repeat="items in data.accesos|filter:operadoraFilterFn" ng-click="selectNodo(items)"
+                ng-class="getNodoClass(items)">
                 {{items.nombre}} 
-            </a>                                                     
+            </a>
         </div>
         <div class="col-xs-6">
             <div class="well" ng-repeat="itemd in data.accesos|filter:operadoraFilterFn|filter:nodoFilterFn">
-                {{itemd.nombre}}
+                <ul class="nav nav-tabs">
+                    <li ng-repeat="itemt in data.accesos|protocol" ng-click="sProcol(itemt)"><a>{{itemt}}</a></li>
+                </ul>
+
+                <div ng-switch on="selection">
+                    <div ng-switch-when="ssh">ssh</div>
+                    <div ng-switch-when="mysql">mysql</div>
+                    <div ng-switch-default>default</div>
+                </div>
             </div>
         </div>
     </div>
