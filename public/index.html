@@ -42,14 +42,9 @@
         <div class="col-xs-6">
             <div class="well" ng-repeat="itemd in data.accesos|filter:operadoraFilterFn|filter:nodoFilterFn">
                 <ul class="nav nav-tabs">
-                    <li ng-repeat="itemt in data.accesos|protocol" ng-click="sProcol(itemt)"><a>{{itemt}}</a></li>
+                    <li ng-repeat="itemt in data.accesos|protocol" ng-click="sProcol(itemt,itemd._id)"><a>{{itemt}}</a></li>
                 </ul>
-
-                <div ng-switch on="selection">
-                    <div ng-switch-when="ssh">ssh</div>
-                    <div ng-switch-when="mysql">mysql</div>
-                    <div ng-switch-default>default</div>
-                </div>
+               <div ng-include="selection"></div>
             </div>
         </div>
     </div>

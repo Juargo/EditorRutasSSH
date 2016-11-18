@@ -30,3 +30,12 @@ angular.module("customFilters",[])
         }
     }
 })
+.filter("content",function(){
+    return function(data,protocol){
+            var content = [];
+            angular.forEach(data[0]["protocolos"][protocol],function(value,key){
+                content.push(value);
+            })
+            return content;
+    }
+})

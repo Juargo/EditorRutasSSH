@@ -7,6 +7,8 @@ angular.module("routerApp")
 
         $scope.selection = null;
 
+        $scope.idc=null;
+
         $scope.selectOperadora = function (newOperadora) {
             selectedOperadora = newOperadora;
         }
@@ -45,7 +47,12 @@ angular.module("routerApp")
             return $("." + nodoclass).hasClass("active")
         }
 
-        $scope.sProcol = function(data){
-            $scope.selection = data;
+        $scope.sProcol = function(data,idc){
+            $scope.selection = "views/" + data + ".html";
+            $scope.idc = idc;
+        }
+
+        $scope.contentFilterFn = function(data,protocolo){
+            return 
         }
     })
