@@ -1,3 +1,6 @@
-<div ng-repeat="itemc in data.accesos|filter:operadoraFilterFn|filter:nodoFilterFn|content:'ssh'">
-   {{itemc}}
+<div ng-repeat="(key,value) in data.accesos|filter:operadoraFilterFn|filter:nodoFilterFn|content:'ssh'">
+        Ruta {{key}}
+        <ul>
+            <li ng-repeat=" itemc in value">{{itemc}}</li>
+        </ul>
 </div>
