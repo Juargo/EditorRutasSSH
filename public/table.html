@@ -1,0 +1,153 @@
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        .form-control{
+                height: 28px;
+        }
+    </style>
+	<script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+	<script>
+		$(document).on('click', '.add_host_button', function(e) {
+			var index_host     	=   $(this).data('host');
+			var new_host 		= 	parseInt(index_host,10)+1;
+
+			var host 		= '<tr class="tr_host_'+new_host+' tr_host_'+new_host+'_0">\
+								<td rowspan="1" class="rowspan_host"><button class="delete_host_button btn btn-danger" data-host="'+new_host+'"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>\
+								<td rowspan="1" class="rowspan_host">\
+									<input type="text" class="form-control" placeholder="Nombre del Host" name="nombre['+new_host+']">\
+									<button class="add_ruta_button btn btn-default btn-xs" type="button"  data-ruta="0" data-host="'+new_host+'"><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>add ruta</button>\
+								</td>\
+								<td rowspan="1" class="rowspan_ruta"><small><strong> Ruta</strong> #0</small></td>\
+								<td><input type="text" class="form-control" placeholder="IP" name="host['+new_host+'][0][0][\'ip\']"></td>\
+								<td><input type="text" class="form-control" placeholder="User" name="host['+new_host+'][0][0][\'user\']"></td>\
+								<td><input type="text" class="form-control" placeholder="Port input" name="host['+new_host+'][0][0][\'port\']"></td>\
+								<td><input class="add_salto_button" type="button" value=">" data-host="'+new_host+'" data-ruta="0" data-salto="0"></td>\
+					   		   </tr>';
+			$('tbody').append(host);
+			$('.add_host_button').data('host',new_host);				   
+		});
+		$(document).on('click', '.delete_host_button', function(e) {
+			var index_host     =   $(this).data('host');
+			$('.tr_host_'+index_host).remove();
+		});
+
+
+		$(document).on('click', '.add_ruta_button', function(e) {
+     		var index_host     		=   $(this).data('host');
+     		var index_ruta     		=   $(this).data('ruta');
+     		var rowspan_host        =   $('.tr_host_'+index_host).children('.rowspan_host').attr('rowspan');
+     		var new_rowspan_host    =   parseInt(rowspan_host,10)+1;
+     		var new_ruta     		=   parseInt(index_ruta,10)+1;
+
+     		var ruta       = '<tr class="tr_host_'+index_host+' tr_host_'+index_host+'_'+new_ruta+'">\
+					    		<td rowspan="1" class="rowspan_ruta"><small><strong> Ruta</strong> #'+new_ruta+'</small> <button class="delete_ruta_button btn btn-danger btn-xs" type="button"  data-host='+index_host+' data-ruta='+new_ruta+' ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>\
+					    		<td><input type="text" class="form-control" placeholder="IP" name="host['+index_host+']['+new_ruta+'][0][\'ip\']"></td>\
+					    		<td><input type="text" class="form-control" placeholder="User" name="host['+index_host+']['+new_ruta+'][0][\'user\']"></td>\
+					    		<td><input type="text" class="form-control" placeholder="Port input" name="host['+index_host+']['+new_ruta+'][0][\'port\']"></td>\
+					    		<td><input class="add_salto_button" type="button" value=">" data-host='+index_host+' data-ruta='+new_ruta+' data-salto="0"></td>\
+				       		   </tr>';
+    		$('.tr_host_'+index_host + '_' +index_ruta).last().after(ruta);
+    		$('.tr_host_'+index_host).children('.rowspan_host').attr('rowspan',new_rowspan_host);
+    		$(this).data('ruta',new_ruta);
+		});
+		$(document).on('click', '.delete_ruta_button', function(e) {
+			var index_host     		=   $(this).data('host');
+    		var index_ruta     		=   $(this).data('ruta');
+			var rowspan_host        =   $('.tr_host_'+index_host).children('.rowspan_host').attr('rowspan');
+    		var new_rowspan_host    =   parseInt(rowspan_host,10)-1;
+			var index_ruta_add 		=  $('.tr_host_'+index_host ).children('.rowspan_host').children('.add_ruta_button').data('ruta');
+
+			$('.tr_host_'+index_host + '_' +index_ruta).remove();
+
+			if (index_ruta == index_ruta_add){
+        		if(index_ruta == 1){
+        			$('.tr_host_'+index_host).children('.rowspan_host').children('.add_ruta_button').data('ruta',0);
+        		}else{
+            		for (var i=index_ruta_add; i>=0; i--) {
+						if ($('.tr_host_'+index_host + '_' +i).length){
+							$('.tr_host_'+index_host).children('.rowspan_host').children('.add_ruta_button').data('ruta',i);
+							break;
+						}
+            		}
+        		}
+			}
+			$('.tr_host_'+index_host).children('.rowspan_host').attr('rowspan',new_rowspan_host);
+		});
+
+ 		$(document).on('click', '.add_salto_button', function(e) {
+     		var index_host     		=   $(this).data('host');
+     		var index_ruta     		=   $(this).data('ruta');
+     		var index_salto    		=   $(this).data('salto');
+     		var rowspan_ruta        =   $('.tr_host_'+index_host + '_' +index_ruta).children('.rowspan_ruta').attr('rowspan');
+     		var new_rowspan_ruta    =   parseInt(rowspan_ruta,10)+1;
+     		var rowspan_host        =   $('.tr_host_'+index_host).children('.rowspan_host').attr('rowspan');
+     		var new_rowspan_host    =   parseInt(rowspan_host,10)+1;
+     		var new_salto     		=   parseInt(index_salto,10)+1;
+
+    	 	var salto      =   '<tr class="tr_host_' + index_host +' tr_host_' +index_host+'_'+index_ruta+' tr_host_' +index_host+'_'+index_ruta +'_'+ new_salto +'">\
+					        		<td><input type="text" class="form-control" placeholder="IP" name="host['+ index_host+']['+index_ruta+']['+new_salto+'][\'ip\']"></td>\
+					        		<td><input type="text" class="form-control" placeholder="User" name="host['+ index_host+']['+index_ruta+']['+new_salto+'][\'user\']"></td>\
+					        		<td><input type="text" class="form-control" placeholder="Port input" name="host['+ index_host+']['+index_ruta+']['+new_salto+'][\'port\']"></td>\
+					        		<td><button class="delete_salto_button btn btn-danger btn-xs" type="button" value="-" data-host='+index_host+' data-ruta='+index_ruta+' data-salto='+new_salto+'><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>\
+				        		</tr>';
+			if(index_salto==0){
+				$('.tr_host_'+index_host + '_' +index_ruta).after(salto);
+			}else{
+				$('.tr_host_'+index_host + '_' +index_ruta +'_'+ index_salto).after(salto);
+			}
+     		$('.tr_host_'+index_host + '_' +index_ruta).children('.rowspan_ruta').attr('rowspan',new_rowspan_ruta);
+     		$('.tr_host_'+index_host).children('.rowspan_host').attr('rowspan',new_rowspan_host);
+     		$(this).data('salto',new_salto);
+ 		}); 
+		$(document).on('click', '.delete_salto_button', function(e) {
+    		var index_host     		=   $(this).data('host');
+    		var index_ruta     		=   $(this).data('ruta');
+    		var index_salto    		=   $(this).data('salto');
+	 		var index_salto_add 	=  $('.tr_host_'+index_host + '_' +index_ruta).children().children('.add_salto_button').data('salto');
+			var rowspan_ruta        =   $('.tr_host_'+index_host + '_' +index_ruta).children('.rowspan_ruta').attr('rowspan');
+    		var new_rowspan_ruta    =   parseInt(rowspan_ruta,10)-1;
+    		var rowspan_host        =   $('.tr_host_'+index_host).children('.rowspan_host').attr('rowspan');
+    		var new_rowspan_host    =   parseInt(rowspan_host,10)-1;
+
+  			$('.tr_host_'+index_host + '_' +index_ruta +'_'+ index_salto).remove();
+    		if (index_salto == index_salto_add){
+        		if(index_salto == 1){
+            		$('.tr_host_'+index_host + '_' +index_ruta).children().children('.add_salto_button').data('salto',0);
+        		}else{
+            		for (var i=index_salto_add; i>=0; i--) {
+						if ($('.tr_host_'+index_host + '_' +index_ruta+'_'+i).length){
+							$('.tr_host_'+index_host + '_' +index_ruta).children().children('.add_salto_button').data('salto',i);
+							break;
+						}
+						if(i==0){
+							$('.tr_host_'+index_host + '_' +index_ruta).children().children('.add_salto_button').data('salto',0);
+						}
+            		}
+        		}
+    		}
+
+			$('.tr_host_'+index_host + '_' +index_ruta).children('.rowspan_ruta').attr('rowspan',new_rowspan_ruta);
+    		$('.tr_host_'+index_host ).children('.rowspan_host').attr('rowspan',new_rowspan_host);
+		});
+</script>
+</head>
+
+<body>
+	<form action="test.php" method="post">
+		<table width="100%" class="table table-condensed">
+			<thead>
+				<tr>
+					<th colspan="7" class="text-center"> <h4>Rutas</h4>
+						<button class="add_host_button btn btn-default btn-xs" type="button" data-host="0">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> add host
+						</button>
+						<input type="submit" value="enviar" data-host="0">
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</form>
+</body>
