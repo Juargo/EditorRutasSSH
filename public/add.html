@@ -13,21 +13,26 @@
     <script src="/components/angular.min.js"></script>
     <script>
         angular.module("addrouterApp",[]);
-        $(document).on('click', '.add_ruta_button', function(e) {
-     		var index_host     		=   0;
-     		var index_ruta     		=   $(this).data('ruta');
-     		var new_ruta     		=   parseInt(index_ruta,10)+1;
+        //$(document).on('click', '.add_ruta_button', function(e) {
+     //		var index_ruta     		=   $(this).data('ruta');
+     	//	var new_ruta     		=   parseInt(index_ruta,10)+1;
 
-     		var ruta       = '<tr class="tr_host_'+new_ruta+'">\
-					    		<td rowspan="1" class="rowspan_ruta"><small><strong> Ruta</strong> #'+new_ruta+'</small> <button class="delete_ruta_button btn btn-danger btn-xs" type="button"  data-ruta='+new_ruta+' ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>\
-					    		<td><input class="form-control" ng-model="nodo.protocolos.ssh.'+new_ruta+'.host"></td>\
-					    		<td><input class="form-control" ng-model="nodo.protocolos.ssh.'+new_ruta+'.user"></td>\
-					    		<td><input class="form-control" ng-model="nodo.protocolos.ssh.'+new_ruta+'.port"></td>\
-					    		<td><input class="add_salto_button" type="button" value=">"  data-ruta='+new_ruta+' data-salto="0"></td>\
-				       		   </tr>';
-    		$('tbody').append(ruta);
-    		$(this).data('ruta',new_ruta);
-		});
+     		//var ruta       = '<tr class="tr_host_'+new_ruta+'">\
+			//		    		<td rowspan="1" class="rowspan_ruta"><small><strong> Ruta</strong> #'+new_ruta+'</small> <button class="delete_ruta_button btn btn-danger btn-xs" type="button"  data-ruta='+new_ruta+' ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>\
+			//		    		<td><input class="form-control" ng-model="nodo.protocolos.ssh.'+new_ruta+'.host"></td>\
+			//		    		<td><input class="form-control" ng-model="nodo.protocolos.ssh.'+new_ruta+'.user"></td>\
+			//		    		<td><input class="form-control" ng-model="nodo.protocolos.ssh.'+new_ruta+'.port"></td>\
+			//		    		<td><input class="add_salto_button" type="button" value=">"  data-ruta='+new_ruta+' data-salto="0"></td>\
+			//	       		   </tr>';
+
+          //  var ruta    = '<tr class="tr_host_1">\
+          //                  <td rowspan="1" class="rowspan_ruta"><small><strong> Ruta</strong> #1</small>\
+          //                  <td><input class="form-control" ng-model="nodo.protocolos.ssh[0][0].port"></td>\
+           //                 <td><input class="add_salto_button" type="button" value=">" data-ruta="1" data-salto="0"></td>\
+          //              </tr>';
+    	//	$('tbody').append(ruta);
+    //		$(this).data('ruta',new_ruta);
+//		});
     </script>
     <script src="controllers/addControllers.js"></script>
 </head>
@@ -54,33 +59,13 @@
                         <tr>
                             <th colspan="7" class="text-center">
                                 <h4>Rutas</h4>
-                                <button class="add_ruta_button btn btn-default btn-xs" type="button" data-ruta="0">
+                                <button class="add_ruta_button btn btn-default btn-xs" type="button" data-ruta="0" ng-click="add_ruta_button($event)">
                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> add Ruta
 						        </button>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                    </tbody>
-                </table>
-
-                <table width="100%" class="table table-condensed">
-                    <thead>
-                        <tr>
-                            <th colspan="7" class="text-center">
-                                <h4>Rutas</h4>
-                                <button class="add_ruta_button btn btn-default btn-xs" type="button" data-ruta="0">
-                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> add Ruta
-						        </button>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="tr_host_1">
-                            <td rowspan="1" class="rowspan_ruta"><small><strong> Ruta</strong> #1</small> 
-                            <td><input class="form-control" ng-model="nodo.protocolos.ssh[0][0].port"></td>
-                            <td><input class="add_salto_button" type="button" value=">" data-ruta="1" data-salto="0"></td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -90,9 +75,6 @@
             <button ng-click="selecting()">sss</button>
         </div>
     </form>
-
-
-
 </body>
 
 </html>
