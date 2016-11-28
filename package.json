@@ -1,10 +1,11 @@
 {
-    "name": "test4",
-    "version": "0.0.1",
-    "description": "test4",
-    "main": "server.js",
-    "dependencies": {
-        "express": "latest",
-        "mongoose": "latest"
-    }
+  "name": "test4",
+  "version": "0.0.1",
+  "description": "test4",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "latest",
+    "mongoose": "latest"
+  }
 }

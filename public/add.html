@@ -18,7 +18,7 @@
 </head>
 
 <body ng-controller="mainController">
-    <form class="form-inline">
+    <form class="form-inline" action="/api/test" method="post">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <form class="form-inline">
@@ -52,7 +52,7 @@
             <div class="panel-body">
 
             </div>
-            <button ng-click="selecting()">sss</button>
+            <button ng-click="selecting()" type="submit">sss</button>
         </div>
     </form>
 </body>

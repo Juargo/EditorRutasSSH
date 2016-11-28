@@ -1,6 +1,7 @@
 var express = require('express');
 var app= express();
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser')
 
 mongoose.connect('mongodb://localhost:27017/routerG');
 
@@ -14,6 +15,12 @@ rutas = mongoose.model('rutas6',{
 
 });
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+	extended: true
+}));
+
+
 app.use(express.static('public'));
 app.get('/api/rutas', function(req,res){
     rutas.find(function(err,data){
@@ -22,6 +29,8 @@ app.get('/api/rutas', function(req,res){
 })
 
 app.post('/api/test',function(req,res){
+    var nodos = req.body.nodo;
+	res.send(req.body);
     var a = new rutas({
         nombre:"dan2",
         operadora:"mvp",
@@ -39,7 +48,8 @@ app.post('/api/test',function(req,res){
        if(err)
             res.send(err);
 
-            res.json({message:"ssss"})
+            //res.json(req)
+            //res.send(req.body);
    })
 })
 app.listen(3000,function(){

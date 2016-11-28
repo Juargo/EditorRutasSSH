@@ -10,7 +10,7 @@ angular.module("addrouterApp")
         }
 
         $scope.add_ruta_button = function (event) {
-            var ruta = '<tr class="tr_host_' + index_ruta + '">\
+            var ruta = '<tr class="tr_ruta_' + index_ruta + '">\
                             <td rowspan="1" class="rowspan_ruta">\
                                 <samp>Ruta: '+ (index_ruta + 1) + '</samp>\
                                 <button class="btn btn-danger btn-xs" type="button"  data-ruta='+ index_ruta + ' ng-click="delete_ruta_button($event)" >\
@@ -18,7 +18,7 @@ angular.module("addrouterApp")
                                 </button>\
                             </td>\
                             <td><input class="form-control" ng-model="nodo.protocolos.ssh['+ index_ruta + '][0].port"></td>\
-                            <td><button class="add_ruta_button btn btn-default btn-xs" type="button" ng-click="add_salto_button($event)" data-salto="0">></button></td>\
+                            <td><button class="add_ruta_button btn btn-default btn-xs" type="button" ng-click="add_salto_button($event)" data-salto="1">></button></td>\
                         </tr>';
 
             $("tbody").append($compile(ruta)($scope));
@@ -28,13 +28,19 @@ angular.module("addrouterApp")
 
         $scope.delete_ruta_button = function (event) {
            var array = [] = $scope.nodo.protocolos.ssh;
+	   var classn = "";
            if ($(event.target)[0].nodeName == "SPAN") {
                 var res = $(event.target).parent().parent().parent()[0].innerText;
-                $(event.target).parent().parent().parent().remove();
+		classn = $(event.target).parent().parent().parent()[0].className;
+                //$(event.target).parent().parent().parent().remove();
             } else {
                 var res = $(event.target).parent().parent()[0].innerText;
-                $(event.target).parent().parent().remove();
+		classn = $(event.target).parent().parent()[0].className;
+                //$(event.target).parent().parent().remove();
            }
+	
+	   var csplit = classn.split(" ");
+	   var index_ruta_class =  csplit[0];
            var split = res.split(" ");
            var index_delete = split[1]-1;
 
@@ -45,23 +51,27 @@ angular.module("addrouterApp")
            //    return a-b;
            //});
            //console.log($scope.nodo.protocolos.ssh);
+           $("." + index_ruta_class).remove();
         }
 
         $scope.add_salto_button = function(event){
             var res = $(event.target).parent().parent()[0].innerText;
             var split = res.split(" ");
             var index_ruta = split[1]-1;
-            var index_salto = $(event.target).data("salto");
-
-            var salto      =   '<tr>\
+            var index_salto = $(event.target)[0].dataset.salto;
+	
+            var salto      =   '<tr class="tr_ruta_' + index_ruta + '">\
 					        	    <td><input class="form-control" ng-model="nodo.protocolos.ssh['+ index_ruta + ']['+index_salto+'].port"></td>\
 					        	</tr>';
 
-            $(event.target).parent().parent().after(salto);  
-            
+            //$(event.target).parent().parent().after($compile(salto)($scope));  
+            $(".tr_ruta_" + index_ruta).last().after($compile(salto)($scope));
+
             rowantes = $(event.target).parent().parent()[0].firstElementChild.attributes[0].value;
            $(event.target).parent().parent()[0].firstElementChild.attributes[0].value = parseInt(rowantes,10) + 1;
 
-           // $(event.target).data("salto",parseInt(index_salto,10)+1)
+		$(event.target)[0].dataset.salto =  (parseInt(index_salto,10) + 1);
+           //$(event.target).data("salto",parseInt(index_salto,10)+1)
+           //console.log($(".tr_ruta_" + index_ruta).last());
         }
     })
