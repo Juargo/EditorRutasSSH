@@ -43,7 +43,7 @@ app.post('/api/test',function(req,res){
             mysql:[]
         }
     })
-   
+
    a.save(function(err){
        if(err)
             res.send(err);
@@ -51,6 +51,12 @@ app.post('/api/test',function(req,res){
             //res.json(req)
             //res.send(req.body);
    })
+})
+
+
+app.post('/api/test2',function(req,res){
+    console.log(req.body.nombre)
+    res.end();
 })
 app.listen(3000,function(){
     console.log('Escuchando en 3000')

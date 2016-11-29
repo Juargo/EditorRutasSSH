@@ -1,12 +1,18 @@
 angular.module("addrouterApp")
-    .controller("mainController", function ($scope, $compile) {
+    .controller("mainController", function ($scope, $compile, $http) {
         $scope.nodo = {};
         $scope.nodo.protocolos = {};
         $scope.nodo.protocolos.ssh = [];
         index_ruta = 0;
 
         $scope.selecting = function () {
-            console.log($scope.nodo)
+            $http.post("/api/test2",$scope.nodo).
+            success(function(data){
+                console.log("sucess")
+            }).error(function(data){
+                console.log("error")
+            })
+            //console.log($scope.nodo)
         }
 
         $scope.add_ruta_button = function (event) {
