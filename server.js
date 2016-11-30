@@ -55,7 +55,22 @@ app.post('/api/test',function(req,res){
 
 
 app.post('/api/test2',function(req,res){
-    console.log(req.body.nombre)
+    ruta=0;
+    //console.log(req.body.protocolos.ssh.length);
+    for (i=0;i<req.body.protocolos.ssh.length;i++){
+        //console.log(i);
+        //console.log(req.body.protocolos.ssh[i]);
+        if(req.body.protocolos.ssh[i]){
+            ruta++;
+            console.log(ruta);
+            d = req.body.protocolos.ssh[i];
+            //console.log(d);
+            for(a in d){
+                console.log(d[a].port);
+            }
+        }
+    }
+    //console.log(req.body.protocolos.ssh.length)
     res.end();
 })
 app.listen(3000,function(){
