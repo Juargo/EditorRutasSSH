@@ -22,8 +22,13 @@ angular.module("addrouterApp")
                                 <button class="btn btn-danger btn-xs" type="button"  data-ruta='+ index_ruta + ' ng-click="delete_ruta_button($event)" >\
                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>\
                                 </button>\
+                                <button class="add_ruta_button btn btn-default btn-xs" type="button" ng-click="">\
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> add salto\
+                                </button>\
                             </td>\
-                            <td><input class="form-control" ng-model="nodo.protocolos.ssh['+ index_ruta + '][0].port"></td>\
+                            <td><input class="form-control" placeholder="Ip" ng-model="nodo.protocolos.ssh['+ index_ruta + '][0].ip" required></td>\
+                            <td><input class="form-control" placeholder="User" ng-model="nodo.protocolos.ssh['+ index_ruta + '][0].user" required></td>\
+                            <td><input class="form-control" placeholder="Port" ng-model="nodo.protocolos.ssh['+ index_ruta + '][0].port" required></td>\
                             <td><button class="add_ruta_button btn btn-default btn-xs" type="button" ng-click="add_salto_button($event)" data-salto="1">></button></td>\
                         </tr>';
 
@@ -67,7 +72,9 @@ angular.module("addrouterApp")
             var index_salto = $(event.target)[0].dataset.salto;
 	
             var salto      =   '<tr class="tr_ruta_' + index_ruta + '">\
-					        	    <td><input class="form-control" ng-model="nodo.protocolos.ssh['+ index_ruta + ']['+index_salto+'].port"></td>\
+                                    <td><input class="form-control" placeholder="Ip" ng-model="nodo.protocolos.ssh['+ index_ruta + ']['+index_salto+'].ip" required></td>\
+                                    <td><input class="form-control" placeholder="User" ng-model="nodo.protocolos.ssh['+ index_ruta + ']['+index_salto+'].user" required></td>\
+					        	    <td><input class="form-control" placeholder="Port" ng-model="nodo.protocolos.ssh['+ index_ruta + ']['+index_salto+'].port" required></td>\
 					        	</tr>';
 
             //$(event.target).parent().parent().after($compile(salto)($scope));  

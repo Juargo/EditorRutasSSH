@@ -15,44 +15,59 @@
         angular.module("addrouterApp",[]);
     </script>
     <script src="controllers/addControllers.js"></script>
+<style>
+    .ng-invalid{
+        background-color: lightpink;
+    }
+    .ng-valid{
+        background-color: lightgreen;
+    }
+    span.error{
+        color:red;
+        font-weight: bold;
+    }
+</style>
 </head>
 
 <body ng-controller="mainController">
     <form class="form-inline">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <form class="form-inline">
+                <form name ="addrutas" class="form-inline" novalidate>
                     <div class="form-group">
-                        <select class="form-control" ng-model="nodo.operadora"> 
-                        <option>MVC</option>
-                        <option>MVP</option>
-                        <option>ENP</option>
-                        <option>ECL</option>
-                    </select>
+                        <select class="form-control" name="selectop" ng-model="nodo.operadora" required> 
+                            <option value="" selected>Operadora</option>
+                            <option>MVC</option>
+                            <option>MVP</option>
+                            <option>EPE</option>
+                            <option>ECL</option>
+                        </select>
+                        <span ng-show="addrutas.selectop.$error.required">Select service</span>
                     </div>
                     <div class="form-group">
-                        <input class="form-control" ng-model="nodo.nombre">
+                        <input name="nombre" class="form-control" placeholder="Nombre" ng-model="nodo.nombre" required/>
+                        <span class="error" ng-show="addrutas.nombre.$error.required">Please enter a name</span>
                     </div>
-                </form>
-                <table width="100%" class="table table-condensed">
-                    <thead>
-                        <tr>
-                            <th colspan="7" class="text-center">
-                                <h4>Rutas</h4>
-                                <button class="add_ruta_button btn btn-default btn-xs" type="button" data-ruta="0" ng-click="add_ruta_button($event)">
+                    <table width="100%" class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th colspan="7" class="text-center">
+                                    <h4>Rutas</h4>
+                                    <button class="add_ruta_button btn btn-default btn-xs" type="button" data-ruta="0" ng-click="add_ruta_button($event)">
                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> add Ruta
 						        </button>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
             </div>
             <div class="panel-body">
 
             </div>
             <button ng-click="selecting()" type="submit">sss</button>
+            </form>
         </div>
     </form>
 </body>
